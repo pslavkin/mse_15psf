@@ -9,7 +9,7 @@ class signal_generator_class:
     # punto de simetria (conde esta el vertice
     def signal_triangular(self, fs, fo, A, N , sim):
         #inicializo para todos los samples que voy a tener
-        tt =   [n/fs  for n in range(N)]
+        tt = np.linspace(0, (N-1)/fs, N)
         ans=[0 for i in range(N)]
         for i in range(N):
             #calculo el porcentaje actual en funcion de i, y usando modulo para
@@ -28,8 +28,8 @@ class signal_generator_class:
     # cilco,  PWM en porcentaje
     def signal_quad(self, fs, fo, A, N , ciclo):
         #vector de N elementos, y aprovecho a cargarle la Amplitud negativa
-        tt = [n/fs  for n in range(N)]
-        ans=[-A for i in range(N)]
+        tt = np.linspace(0, (N-1)/fs, N)
+        ans=[0 for i in range(N)]
         for i in range(N):
         #    #calculo para cada muestra en que parte del PWM estoy
             percent=(tt[i]%(1/fo))/(1/fo) * 100
@@ -45,8 +45,8 @@ class signal_generator_class:
         #con esta magia greo un vector con N valores del seno de fo capturados
         #una distancia de 1/fs cada uno. Aplico %1 para que no arrastre error de pi a medida 
         #que el factor multiplicativo se hace mas grande.. como es periodica en 2*pi aprovecho eso
-        tt =   [n/fs  for n in range(N)]
-        ans =  [A * np.sin( 2 * np.pi * fo * (tt[n]%1) + rad) for n in range(N)]
+        tt = np.linspace(0, (N-1)/fs, N)
+        ans =  A * np.sin( 2 * np.pi * fo * tt + rad)
         return ans, tt
 
     def signal_noise(self, fs, mean, deviation, N):

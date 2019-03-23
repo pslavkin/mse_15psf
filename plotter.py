@@ -10,14 +10,27 @@ class plotter_class:
         plt.tight_layout(pad=4, w_pad=1, h_pad=6)
         plt.draw()
 
-    def plot_signal(self, pos, x, y, title, xLabel, yLabel, about):
+    def plot_signal(self, pos, x, y, title, xLabel, yLabel, about='',trace='.'):
         ax=self.fig.add_subplot(self.row,self.col,pos)
-        line, =ax.plot(x,y,'-')#, label=about)
+        line, =ax.plot(x,y,trace, label=about)
+        plt.stem
         ax.set_title(title)
         ax.set_xlabel(xLabel)
         ax.set_ylabel(yLabel)
         ax.grid(which='both', axis='both')
-#        ax.legend(loc='best')
+        if about != '':
+            ax.legend(loc='best')
+        plt.draw()
+
+    def stem_signal(self, pos, x, y, title, xLabel, yLabel, about='',trace='.'):
+        ax=self.fig.add_subplot(self.row,self.col,pos)
+        ax.set_title(title)
+        ax.set_xlabel(xLabel)
+        ax.set_ylabel(yLabel)
+        ax.grid(which='both', axis='both')
+        if about != '':
+            ax.legend(loc='best')
+        plt.stem(x,y)
         plt.draw()
 
     def plot_show(self):
