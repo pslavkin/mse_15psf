@@ -7,7 +7,7 @@ class plotter_class:
         self.col=col
         self.fig=plt.figure(figsize=( 10, 7))
         self.ax1=self.fig.add_subplot(row,col,1)
-        plt.tight_layout(pad=4, w_pad=1, h_pad=6)
+        plt.tight_layout(pad=4, w_pad=5, h_pad=6)
         plt.draw()
 
     def plot_signal(self, pos, x, y, title, xLabel, yLabel, about='',trace='.'):
@@ -32,9 +32,6 @@ class plotter_class:
             ax.legend(loc='best')
         plt.stem(x,y)
         plt.draw()
-
-    def plot_show(self):
-        plt.show()
 
     def plot_show(self):
         plt.show()

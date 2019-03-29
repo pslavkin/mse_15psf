@@ -40,21 +40,38 @@ from dft import *
 N  = 1024
 fs = 1024
 a0 = 1       # Volts
-p0 = 5 # radianes
-f0 = 10.0   # Hz
+p0 = 0 # radianes
+f0 = 10   # Hz
 
 dft_c=dft_class()
 sg= signal_generator_class()
 
-pl4= plotter_class(2,1)
+pl4= plotter_class(3,2)
+signal ,time  = sg.signal_sin ( fs ,f0 ,a0 ,N ,p0 )
+fft    ,freq  = dft_c.dft_abs ( fs ,N  ,signal    );
+pl4.plot_signal ( 1 ,time ,signal ,'seno %f hz' %f0 ,'tiempo'     ,'volts' ,trace='-' )
+pl4.stem_signal ( 2 ,freq ,fft    ,'dft'  ,'frecuencia' ,'normalizado'      )
+
+
+a0 = 1       # Volts
+p0 = 0 # radianes
+f0 = 100   # Hz
+
+signal ,time  = sg.signal_sin ( fs ,f0 ,a0 ,N ,p0 )
+fft    ,freq  = dft_c.dft_abs ( fs ,N  ,signal    );
+pl4.plot_signal ( 3 ,time ,signal ,'seno %f hz' %f0 ,'tiempo'     ,'volts' ,trace='-' )
+pl4.stem_signal ( 4 ,freq ,fft    ,'dft'  ,'frecuencia' ,'normalizado'      )
+
+
+a0 = 1       # Volts
+p0 = 10 # radianes
+f0 = 10   # Hz
+
 signal ,time  = sg.signal_quad ( fs ,f0 ,a0 ,N ,p0 )
-fft    ,freq  = dft_c.dft_full ( fs ,N  ,signal    );
-pl4.plot_signal (1 ,time ,signal ,'seno' ,'tiempo'     ,'a0' ,trace='-')
-#pl4.plot_signal (2 ,freq ,fft    ,'fft'  ,'frecuencia' ,'a0' ,trace='-')
-pl4.stem_signal(2,freq,fft,'fft'  ,'frecuencia' ,'a0')
-
+fft    ,freq  = dft_c.dft_abs ( fs ,N  ,signal    );
+pl4.plot_signal ( 5 ,time ,signal ,'cuadrada %f hz' %f0 ,'tiempo'     ,'volts' ,trace='-' )
+pl4.stem_signal ( 6 ,freq ,fft    ,'dft'  ,'frecuencia' ,'normalizado'      )
 pl4.plot_show()
-
 
 
 

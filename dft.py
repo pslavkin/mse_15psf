@@ -12,4 +12,4 @@ class dft_class:
 
     def dft_full(self, fs, N, signal):
         freq = np.linspace(0, fs, N)
-        return (2/N)*np.abs(sc.fft(signal))[:N//1], freq[:N//1]
+        return (1/N)*np.abs(sc.fft(signal))[:N//1], freq[:N//1]
