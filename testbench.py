@@ -26,7 +26,7 @@ from dft import *
 #pl2.plot_draw(1)
 #
 #pl3= plotter_class(2,2)
-#for f0 in range(5,21,5):
+#for f0 hn range(5,21,5):
 #    ans,tt=sg.signal_triangular(fs, f0, a0, N, 75)
 #    pl3.plot_signal (f0/5,tt,ans,'triangular f0=%fhz' %f0 ,'tiempo' ,'a0')
 #pl3.plot_draw(1)
@@ -39,43 +39,41 @@ from dft import *
 
 N  = 1024
 fs = 1024
-a0 = 1	     # Volts
-p0 = 0	# radianes
+a0 = 1
+p0 = 0
 f0 = fs//4
 
-dft_c=dft_class()
-sg= signal_generator_class()
+dft_c  = dft_class              (     )
+sg     = signal_generator_class (     )
+pl     = plotter_class          ( 2,2 )
+offset = [0,0.01,0.25,0.5]
+graph  = 0;
+ans    = [[0]*3 for i in range(4)]
+strans = [[0]*3 for i in range(4)]
 
-pl4= plotter_class(2,2)
-offset=[0,0.01,0.25,0.5]
-graph=0;
-ans=[0 for i in range(5*3)]
+
 for D in offset :
-    signal ,time  = sg.signal_sin ( fs+D ,f0 ,a0 ,N ,p0 )
-    fft    ,freq  = dft_c.abs ( fs+D ,N  ,signal    );
-    #pl4.plot_signal ( 1 ,time ,signal ,'seno %f hz' %f0 ,'tiempo'  ,'volts' ,trace='-' )
-    label="f0=" + str(f0) + "+" + str(D) + " pot centro=" + str(round(dft_c.power(fft,1024//4),4))
-    pl4.stem_signal ( graph+1 ,freq[f0-10:f0+10] ,fft[f0-10:f0+10]  ,label ,'frecuencia' ,'normalizado'	 )
-    ans[0+graph*3]=dft_c.power	 ( fft ,1024//4   )
-    ans[1+graph*3]=dft_c.power	 ( fft ,1024//4+1 )
-    ans[2+graph*3]=dft_c.power_sum ( fft ,1024//4   )
-#    print (dft_c.power(fft,1024//4))
-#    print (dft_c.power_sum(fft,1024//4))
+    signal ,time = sg.signal_sin ( fs+D ,f0 ,a0 ,N ,p0 )
+    fft    ,freq = dft_c.abs     ( fs+D ,N  ,signal    );
+    #pl.plot_signal ( 1 ,time ,signal ,'seno %f hz' %f0 ,'tiempo'  ,'volts' ,trace='-' )
+    label=f"f0={f0} + {D} + Pcetral= {dft_c.power(fft,1024//4):.2f}"
+    pl.stem_signal ( graph+1 ,freq[f0-10:f0+10] ,fft[f0-10:f0+10]  ,label ,'frecuencia','Pnormal.')
+    ans[graph][0] = dft_c.power     ( fft ,1024//4   )
+    ans[graph][1] = dft_c.power     ( fft ,1024//4+1 )
+    ans[graph][2] = dft_c.power_sum ( fft ,1024//4   )
     graph+=1
+pl.plot_show()
 
-print (ans)
-pl4.plot_show()
+
+for i in range(len(ans)):
+    for j in range(len(ans[0])):
+        strans[i][j]=str(ans[i][j])
 
 
 tus_resultados = [ ['$ \lvert X(f_0) \lvert$' ,
     '$ \lvert X(f_0+1) \lvert $' ,
     '$ \sum_{i=F} \lvert X(f_i) \lvert ^2 $'] ,
-    ['' ,'' ,'$F:f \neq f_0$'] ,
-    [str ( ans[0] ) ,str(ans[1])  ,str(ans[2])]  ,
-    [str ( ans[3] ) ,str(ans[4])  ,str(ans[5])]  ,
-    [str ( ans[6] ) ,str(ans[7])  ,str(ans[8])]  ,
-    [str ( ans[9] ) ,str(ans[10]) ,str(ans[11])] ,
-    ]
+    ['' ,'' ,'$F:f \neq f_0$'] , strans ]
 
 ##
 #a0 = 1       # Volts
@@ -83,8 +81,8 @@ tus_resultados = [ ['$ \lvert X(f_0) \lvert$' ,
 #f0 = 100   # Hz
 #
 #signal ,time  = sg.signal_sin ( fs ,f0 ,a0 ,N ,p0 )
-#fft	,freq  = dft_c.dft_abs ( fs ,N	,signal    );
-#pl4.plot_signal ( 3 ,time ,signal ,'seno %f hz' %f0 ,'tiempo'	   ,'volts' ,trace='-' )
+#fft    ,freq  = dft_c.dft_abs ( fs ,N  ,signal    );
+#pl4.plot_signal ( 3 ,time ,signal ,'seno %f hz' %f0 ,'tiempo'     ,'volts' ,trace='-' )
 #pl4.stem_signal ( 4 ,freq ,fft    ,'dft'  ,'frecuencia' ,'normalizado'      )
 #
 #
@@ -93,7 +91,7 @@ tus_resultados = [ ['$ \lvert X(f_0) \lvert$' ,
 #f0 = 10   # Hz
 #
 #signal ,time  = sg.signal_quad ( fs ,f0 ,a0 ,N ,p0 )
-#fft	,freq  = dft_c.dft_abs ( fs ,N	,signal    );
+#fft    ,freq  = dft_c.dft_abs ( fs ,N  ,signal    );
 #pl4.plot_signal ( 5 ,time ,signal ,'cuadrada %f hz' %f0 ,'tiempo'     ,'volts' ,trace='-' )
 #pl4.stem_signal ( 6 ,freq ,fft    ,'dft'  ,'frecuencia' ,'normalizado'      )
 #pl4.plot_show()
