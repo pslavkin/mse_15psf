@@ -49,6 +49,19 @@ class signal_generator_class:
         ans =  A * np.sin( 2 * np.pi * fo * tt + rad)
         return ans, tt
 
+    def signal_sin_zero_padded(self, fs, fo, A, N , rad,Zeros):
+        #con esta magia greo un vector con N valores del seno de fo capturados
+        #una distancia de 1/fs cada uno. Aplico %1 para que no arrastre error de pi a medida 
+        #que el factor multiplicativo se hace mas grande.. como es periodica en 2*pi aprovecho eso
+        tt  = np.linspace(0, (N+Zeros-1)/fs, N+Zeros)
+        ans = np.linspace(0, (N+Zeros-1)/fs, N+Zeros)
+        for i in range(N+Zeros):
+            if i<N:
+                ans[i] =  A * np.sin( 2 * np.pi * fo * tt[i] + rad)
+            else:
+                ans[i] =  0
+        return ans, tt
+
     def signal_noise(self, fs, mean, deviation, N):
         tt =   [n/fs  for n in range(N)]
         ans = np.random.normal(mean, deviation, N )
