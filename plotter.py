@@ -10,10 +10,23 @@ class plotter_class:
         plt.tight_layout(pad=4, w_pad=5, h_pad=6)
         plt.draw()
 
-    def plot_signal(self, pos, x, y, title, xLabel, yLabel, about='',trace='.'):
+    def plot_signal(self, pos, x, y, title, xLabel, yLabel, about='',trace='.',center=0,zoom=0):
         ax=self.fig.add_subplot(self.row,self.col,pos)
-        line, =ax.plot(x,y,trace, label=about)
-        plt.stem
+        N      = len(x)
+        zoom   = int(zoom)
+        center = int(center)
+        if zoom!=0:
+            zoom_min=center-zoom
+            if zoom_min<0:
+                zoom_min=0
+            zoom_max=center+zoom
+            if zoom_max>N:
+                zoom_max=N
+        else:
+            zoom_max=N
+            zoom_min=0
+        line, =ax.plot(x[zoom_min:zoom_max],y[zoom_min:zoom_max],trace, label=about)
+
         ax.set_title(title)
         ax.set_xlabel(xLabel)
         ax.set_ylabel(yLabel)
@@ -22,15 +35,29 @@ class plotter_class:
             ax.legend(loc='best')
         plt.draw()
 
-    def stem_signal(self, pos, x, y, title, xLabel, yLabel, about='',trace='.'):
+    def stem_signal(self, pos, x, y, title, xLabel, yLabel, about='',trace='.',center=0,zoom=0):
         ax=self.fig.add_subplot(self.row,self.col,pos)
+        N      = len(x)
+        zoom   = int(zoom)
+        center = int(center)
+        if zoom!=0:
+            zoom_min=center-zoom
+            if zoom_min<0:
+                zoom_min=0
+            zoom_max=center+zoom
+            if zoom_max>N:
+                zoom_max=N
+        else:
+            zoom_max=N
+            zoom_min=0
+        line, =ax.plot(x[zoom_min:zoom_max],y[zoom_min:zoom_max],trace, label=about)
         ax.set_title(title)
         ax.set_xlabel(xLabel)
         ax.set_ylabel(yLabel)
         ax.grid(which='both', axis='both')
         if about != '':
             ax.legend(loc='best')
-        plt.stem(x,y)
+        plt.stem(x[zoom_min:zoom_max],y[zoom_min:zoom_max])
         plt.draw()
 
     def plot_show(self):
