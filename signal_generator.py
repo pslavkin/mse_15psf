@@ -67,7 +67,7 @@ class signal_generator_class:
         ans = np.random.normal(mean, deviation, N )
         return ans, tt
 
-    def signal_sin_cycles(self, fs, fo, A, N , start=0, cycles=-1):
+    def signal_sin_cycles(self, fs, fo, A, N , start=0, cycles=-1,phase=0):
         #con esta magia greo un vector con N valores del seno de fo capturados
         #una distancia de 1/fs cada uno. Aplico %1 para que no arrastre error de pi a medida 
         #que el factor multiplicativo se hace mas grande.. como es periodica en 2*pi aprovecho eso
@@ -79,6 +79,6 @@ class signal_generator_class:
         end   = begin+cycles*fs//fo
         if end>N:
             end=N
-        ans[begin:end] =  A * np.sin( 2 * np.pi * fo * tt[begin:end])
+        ans[begin:end] =  A * np.sin( 2 * np.pi * fo * tt[begin:end]+ phase)
         return ans, tt
 

@@ -5,6 +5,9 @@ class dft_class:
     def __init__(self):
         pass
 
+    def inv_fft(self, fs, N, signal):
+        return N*sc.ifft(signal)
+
     def abs(self, fs, N, signal):
         freq = np.linspace(0, fs, N)
         return (1/N)*np.abs(sc.fft(signal))[:N//2], freq[:N//2]
