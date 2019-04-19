@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AMPLITUD	testbench.py	/^AMPLITUD  = 10$/;"	v
+FS	testbench.py	/^FS        = 100$/;"	v
+MAX_FREC	testbench.py	/^MAX_FREC  = 50$/;"	v
+MAX_PHASE	testbench.py	/^MAX_PHASE = 10$/;"	v
+N	testbench.py	/^N         = 500$/;"	v
+__init__	plotter.py	/^    def __init__(self,row,col):$/;"	m	class:plotter_class
+__init__	signal_generator.py	/^    def __init__(self):$/;"	m	class:signal_generator_class
+pl	testbench.py	/^pl= plotter_class(2,2)$/;"	v
+plot_draw	plotter.py	/^    def plot_draw(self,pause):$/;"	m	class:plotter_class
+plot_show	plotter.py	/^    def plot_show(self):$/;"	m	class:plotter_class
+plot_signal	plotter.py	/^    def plot_signal(self, pos, x, y, title, xLabel, yLabel, about):$/;"	m	class:plotter_class
+plotter_class	plotter.py	/^class plotter_class:$/;"	c
+sg	testbench.py	/^sg= signal_generator_class()$/;"	v
+signal_generator_class	signal_generator.py	/^class signal_generator_class:$/;"	c
+signal_noise	signal_generator.py	/^    def signal_noise(self, mean, deviation, N):$/;"	m	class:signal_generator_class
+signal_quad	signal_generator.py	/^    def signal_quad(self, fs, fo, A, N , ciclo):$/;"	m	class:signal_generator_class
+signal_sin	signal_generator.py	/^    def signal_sin(self, fs, fo, A, N , rad):$/;"	m	class:signal_generator_class
+signal_triangular	signal_generator.py	/^    def signal_triangular(self, fs, fo, A, N , sim):$/;"	m	class:signal_generator_class

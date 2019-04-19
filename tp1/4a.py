@@ -30,8 +30,6 @@ ans[0] = dft_c.power_total ( fs, fft ,f0 )
 ans[1] = dft_c.power_bin   ( fs, fft ,f0 )
 ans[2] = dft_c.max_bin     ( fs, fft     )
 
-
 pl.stem_signal ( 2 ,freq,fft,f"f0={f0}",'frecuencia','Pnormal',f"Ptot={ans[0]:.2f}, Pbin={ans[1]:.2f}, bin_max={ans[2]:.2f}",center=ans[2],zoom=N//20)
 pl.plot_show()
-
 
