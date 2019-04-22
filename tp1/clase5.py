@@ -30,6 +30,8 @@ pl4.stem_signal ( 2 ,freq ,fft    ,'dft'            ,'frecuencia' ,'normalizado'
 #pl4.plot_show()
 
 h=[1/avg for i in range(avg)]
+print(h)
+print(signa)
 
 y = signal.convolve(signa+noise,h)
 pl4.plot_signal ( 3 ,time[:1000] ,y[:1000],'seno %f hz' %f0 ,'tiempo'     ,'volts' ,trace='-' )
