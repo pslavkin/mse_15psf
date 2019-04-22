@@ -1,6 +1,6 @@
 import numpy as np
 #from numpy import convolve as np_convolve
-#from scipy.signal import fftconvolve, lfilter, firwin
+from scipy.signal import fftconvolve, lfilter, firwin
 #from scipy.signal import convolve as sig_convolve
 #from scipy.ndimage import convolve1d
 from scipy import signal

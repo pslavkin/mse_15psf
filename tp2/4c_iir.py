@@ -14,24 +14,19 @@ f           = filter_class           (     )
 dft_c       = dft_class              (     )
 
 mat                = scipy.io.loadmat('file.mat')
-ecg_lead           = mat[ 'ecg_lead'           ]
+ecg_lead_original  = mat[ 'ecg_lead'           ]
 qrs_pattern1       = mat[ 'qrs_pattern1'       ]
 heartbeat_pattern1 = mat[ 'heartbeat_pattern1' ]
 heartbeat_pattern2 = mat[ 'heartbeat_pattern2' ]
 qrs_detections     = mat[ 'qrs_detections'     ]
 
-lopass             = np.load("lopass_fir.npz")['ba'][0]
-hipass             = np.load("hipass_fir.npz")['ba'][0]
+lopass             = np.load("lopass_iir.npz")['ba']
+hipass             = np.load("hipass_iir.npz")['ba']
 
 
-
-zonas_sin_interf = (
-        np.array([5, 5.2]) *60*fs, # minutos a muestras
-        [4000, 5500], # muestras
-        [10e3, 11e3], # muestras
-        )
-
-ecg_lead=np.append(ecg_lead[int(12.0*60*fs):int(13.00*60*fs)],ecg_lead[int(15.0*60*fs):int(15.2*60*fs)])
+ecg_lead=np.append(ecg_lead_original[int(12.0*60*fs):int(13.0*60*fs)],ecg_lead_original[int(15.0*60*fs):int(15.2*60*fs)])
+#ecg_lead=np.append(ecg_lead_original[4000:5500],ecg_lead_original[10000:11000])
+#ecg_lead=np.append(ecg_lead,ecg_lead_original[int( 5.0*60*fs):int( 5.2*60*fs)])
 ecg_lead=ecg_lead[:ecg_lead.size].flatten()
 
 t=np.linspace ( 0 ,ecg_lead.size ,ecg_lead.size )
@@ -39,15 +34,15 @@ pl.plot_signal( 1 ,t ,ecg_lead ,'ecg_lead' ,'time [msec]' ,'mvolt' ,trace='-' )
 
 fft    ,freq  = dft_c.abs ( fs ,ecg_lead.size  ,ecg_lead[:].flatten( ));
 pl.stem_signal ( 2 ,freq ,fft ,'fft' ,'frecuencia','Pnormal.',center=25/(fs/(fft.size*2)),zoom=25/(fs/(fft.size*2)) )
-
-y = f.fir       ( ecg_lead,lopass )
+#
+y = f.iir       ( ecg_lead,lopass[0],lopass[1] )
 t = np.linspace ( 0,y.size,y.size )
 pl.plot_signal  ( 3 ,t[:t.size-lopass.size//2],y[lopass.size//2:] ,'fir' , 'time' ,'mvolt'  ,trace='-' )
-
+#
 fft    ,freq  = dft_c.abs( fs ,y.size  ,y    );
 pl.stem_signal ( 4 ,freq ,fft ,'fft y' ,'frecuencia','Pnormal.',center=25/(fs/(fft.size*2)),zoom=25/(fs/(fft.size*2)))
 
-y = f.fir       ( ecg_lead,hipass )
+y = f.iir       ( y,hipass[0],hipass[1] )
 t = np.linspace ( 0,y.size,y.size )
 pl.plot_signal  ( 5 ,t[:t.size-hipass.size//2],y[hipass.size//2:]   ,'fir' , 'time' ,'mvolt'  ,trace='-' )
 
