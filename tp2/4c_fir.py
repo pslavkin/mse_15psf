@@ -8,7 +8,7 @@ from    dft import *
 
 fs = 1000
 
-sg          = signal_generator_class()
+sg          = signal_generator_class (     )
 pl          = plotter_class          ( 3,2 )
 f           = filter_class           (     )
 dft_c       = dft_class              (     )
@@ -22,8 +22,6 @@ qrs_detections     = mat[ 'qrs_detections'     ]
 
 lopass             = np.load("lopass_fir.npz")['ba'][0]
 hipass             = np.load("hipass_fir.npz")['ba'][0]
-
-
 
 zonas_sin_interf = (
         np.array([5, 5.2]) *60*fs, # minutos a muestras
